@@ -8,6 +8,7 @@ router.get('/test-me', function (req, res) {
     res.send('My second ever api!')
 });
 
+
 router.get('/students', function (req, res){
     console.log("The path params in the request are : ", req.params)
     let students = ['Sabiha', 'Neha', 'Akash']
@@ -40,4 +41,8 @@ router.get('/student-details/:name', function(req, res){
     res.send('Dummy response')
 })
 
+router.get('/movies', function(req,res){
+ let movies =["Rang de basanti","The shining","Lord of the rings","Batman begins"]
+})
+res.send(movies)
 module.exports = router;

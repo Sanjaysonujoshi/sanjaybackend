@@ -41,8 +41,61 @@ router.get('/student-details/:name', function(req, res){
     res.send('Dummy response')
 })
 
-router.get('/movies', function(req,res){
- let movies =["Rang de basanti","The shining","Lord of the rings","Batman begins"]
+// router.get('/movies', function(req,res){
+//     console.log(req.params)
+//  let movies =["Rang de basanti","The shining","Lord of the rings","Batman begins"]
+//  res.send(movies)
+// })
+
+
+// router.get('/movies/:indexNumber',function(req,res){
+//     let movies =["Rang de basanti","The shining","Lord of the rings","Batman begins"]
+//     res.send(movieName.indexnumber<movies.length?"The movie Name is:"+ movies[movieName.indexNumber]:"error:Please use a valid index")
+// })
+
+router.get('/films',function(req,res){
+    let arrayofobj1 =[
+        {
+            "id" : 1,
+            "name":"the shining"
+        },{
+            "id" :2,
+            "name":"incendies"
+        },{
+            "id" :3,
+            "name":"Rang de basanti"
+        },{
+            "id":4,
+            "name":"finding Nemo"
+        }]
+        res.send(arrayofobj1)
 })
-res.send(movies)
+
+router.get('/films/:filmid',function(req,res){
+    let arrayofobj2 =[
+        {
+            "id" : 1,
+            "name":"the shining"
+        },{
+            "id" :2,
+            "name":"incendies"
+        },{
+            "id" :3,
+            "name":"Rang de basanti"
+        },{
+            "id":4,
+            "name":"finding Nemo"
+        }]
+        for(let i=0;i<arrayofobj2.length;i++){
+            if(arrayofobj[i].id==req.params.filmid){
+                res.send(arrayofobj2[i])
+                break;
+            }
+        }
+        res.send("error : No movie exist with this id")
+})
+
+
+
+
 module.exports = router;

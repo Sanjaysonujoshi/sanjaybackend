@@ -1,41 +1,30 @@
 const express = require('express');
 const router = express.Router();
-// const UserModel= require("../models/userModel.js")
-const UserController= require("../controllers/userController")
-const BookController= require("../controllers/bookController")
 
-router.get("/test-me", function (req, res) {
-    res.send("My first ever api!")
+const bookModel = require("../models/bookModel")
+const authorModel= require("../models/authorModel")
+
+const bookController=require("../controllers/bookcontrollers.js")
+
+
+router.post("/createbook",bookController.createbook)
+
+router.post("/createAuthor",bookController.createAuthor)
+
+
+router.post("/findbook",async function (req,res){
+    const savedData2 = await authorModel.findOne({author_name: "chetan Bhagat"})
+    const authorId = savedData2.author_id
+   const savedData3 = await bookModel.find({author_id: authorId}).select ({name: 1, _id:0})
+   res.send({msg : savedData3})
 })
 
-router.post("/createUser", UserController.createUser  )
 
-router.get("/getUsersData", UserController.getUsersData)
-
-router.post("/createBook", BookController.createBook  )
-
-router.get("/getBooksData", BookController.getBooksData)
-
-router.post("/updateBooks", BookController.updateBooks)
-router.post("/deleteBooks", BookController.deleteBooks)
-
-//MOMENT JS
-const moment = require('moment');
-router.get("/dateManipulations", function (req, res) {
-    
-    // const today = moment();
-    // let x= today.add(10, "days")
-
-    // let validOrNot= moment("29-02-1991", "DD-MM-YYYY").isValid()
-    // console.log(validOrNot)
-    
-    const dateA = moment('01-01-1900', 'DD-MM-YYYY');
-    const dateB = moment('01-01-2000', 'DD-MM-YYYY');
-
-    let x= dateB.diff(dateA, "days")
-    console.log(x)
-
-    res.send({ msg: "all good"})
+router.post("/findauthor", async function (req,res){
+    const savedData4 = await bookModel.findOneAndUpdate({ name :"Two states"},{$set :{price :100}},{new: true})
+    const authorid1 = savedData4.author_id
+    const savedData5 = await authorModel.findOne({author_id: authorId1 }).select({author_name : 1, _id:0})
+    res.send({msg: savedData5})
 })
 
 module.exports = router;

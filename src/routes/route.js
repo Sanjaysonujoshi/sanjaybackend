@@ -9,8 +9,16 @@ router.post("/createAuthor", authorController.author)
 
 router.post("/createpublisher",publishController.publisher)
 
-router.post("/createBook", bookController.createbook)
+router.post("/createBook", bookController.createBook)
 
-router.get("/getBooksData", bookController.createbook)
+router.put("/updateValue", bookController.updateValue)
+
+
+router.put("/updatePrice",bookController.updatePrice)
+
+
+
+
+// router.put("/books",books.books)
 
 module.exports = router;

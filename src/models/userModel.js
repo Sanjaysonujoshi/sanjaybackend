@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 
 const userSchema = new mongoose.Schema( {
-    Name: String,
+    name: String,
     
     balance: {
         type: String,
@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema( {
     age:String,
     address: String,
         gender:{
-            type:String, 
+            type:String,   
         enum: ["male", "female", "other"] 
     },
    

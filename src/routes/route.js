@@ -3,7 +3,7 @@ const router = express.Router();
 const userController= require("../controllers/userController")
 const productController = require("../controllers/productController.js")
 
-
+const orderController= require("../controllers/orderController.js")
 // const ordercontroller = require("../controllers/ordercontroller")
 // //Can we set the 'next' input parameter in a route handler?
 // //What is the primary difference between a middleware and a route handler?
@@ -13,6 +13,7 @@ const productController = require("../controllers/productController.js")
 
 router.post("/createuser",  userController.createuser)
 router.post("/productdetails", productController.productdetails)
+router.post("/orderdetails",orderController.orderdetails)
 
 
 module.exports = router;

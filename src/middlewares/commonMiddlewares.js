@@ -1,10 +1,13 @@
-const mid1 = function async (req,res,next){
-    let valid= req.headers["isFreeappuser"]
-    if(valid=="true"){
+const mid1 = function (req,res,next) {
+    let valid=req.headers["isFreeappuser"]
+    if(valid==true){
         next()
     }
+     
     else{
-        res.send("this request is missing a mandatory header")
+        return res.send({message: "mandotry is not present"}) 
+
+
     }
 }
 module.exports.mid1=mid1

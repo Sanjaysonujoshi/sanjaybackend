@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema( {
-   userid : Number,
+   userid :String,
     productid: String,
     amount: Number,
     isfreeAppUser: Boolean

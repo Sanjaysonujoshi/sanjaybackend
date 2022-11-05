@@ -6,16 +6,16 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/', route)
 
-
-mongoose.connect("mongodb+srv://users-open-to-all:hiPassword123@cluster0.uh35t.mongodb.net/skDB?retryWrites=true&w=majority", {
-    useNewUrlParser: true
+mongoose.connect("mongodb+srv://joshisonu305:HiBGiXtunf0DwjvY@cluster0.wbg9p0r.mongodb.net/sanjay41", {
+    useNewUrlParser: true 
 })
 .then( () => console.log("MongoDb is connected"))
 .catch ( err => console.log(err) )
 
 
-app.use('/', route)
+
 
 
 app.listen(process.env.PORT || 3000, function () {

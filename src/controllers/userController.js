@@ -4,15 +4,11 @@ const userModel = require("../models/userModel");
 /*
   Read all the comments multiple times to understand why we are doing what we are doing in login api and getUserData api
 */
-const createUser = async function (abcd, xyz) {
-  //You can name the req, res objects anything.
-  //but the first parameter is always the request 
-  //the second parameter is always the response
-  let data = abcd.body;
+const createUser = async function (req,res) {
+  let data = req.body;
   let savedData = await userModel.create(data);
-  console.log(abcd.newAtribute);
-  xyz.send({ msg: savedData });
-};
+  res.send({ msg: savedData });
+}; 
 
 const loginUser = async function (req, res) {
   let userName = req.body.emailId;
@@ -45,10 +41,10 @@ const loginUser = async function (req, res) {
 
 const getUserData = async function (req, res) {
   let token = req.headers["x-Auth-token"];
-  if (!token) token = req.headers["x-auth-token"];
+  // if (!token) token = req.headers["x-auth-token"];
 
   //If no token is present in the request header return error. This means the user is not logged in.
-  if (!token) return res.send({ status: false, msg: "token must be present" });
+  if (!token) return res.send({ status: false, msg: "token must be presen" });
 
   console.log(token);
 
@@ -67,7 +63,7 @@ const getUserData = async function (req, res) {
 
   let userId = req.params.userId;
   let userDetails = await userModel.findById(userId);
-  if (!userDetails)
+  if (!userDetails) 
     return res.send({ status: false, msg: "No such user exists" });
 
   res.send({ status: true, data: userDetails });
@@ -84,7 +80,7 @@ const updateUser = async function (req, res) {
   let user = await userModel.findById(userId);
   //Return an error if no user with the given id exists in the db
   if (!user) {
-    return res.send("No such user exists");
+    return res.send("No such user exists"); 
   }
 
   let userData = req.body;
@@ -92,7 +88,19 @@ const updateUser = async function (req, res) {
   res.send({ status: updatedUser, data: updatedUser });
 };
 
+const deleteuser = async function(req,res){
+   let userId = req.params.userId
+   let user = await userModel.findByIdAndUpdate(userId,{isDeleted :true})
+let token=req.header["x-auth-token"]
+if (!token) {token = req.headers["x-auth-token"];
+  return res.send("token must be present")
+}else{
+   res.send({user})
+  } 
+}
+
 module.exports.createUser = createUser;
 module.exports.getUserData = getUserData;
 module.exports.updateUser = updateUser;
 module.exports.loginUser = loginUser;
+module.exports.deleteuser = deleteuser;  

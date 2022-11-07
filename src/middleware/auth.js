@@ -1,33 +1,25 @@
+const jwt = require("jsonwebtoken");
+const authenticate = function (req,res,next){
+    let token = req.headers["X-Auth-token"]
+    if(!token) token = req.headers["x-auth-token"]
+
+    if(!token ) return res.send({status :false, msg:"token must be present"});{
+        console.log(token);
 
 
-const authenticate = function(req, res, next) {
-  let info = req.header["x-auth-token"]
-   let token = jwt.verify(info,'functionup-thorium')
-  if(!token ){ return res.send({msg:"token is not valid"})
-}else{
-    next()
-}
-}
-
-    //check the token in request header
-    //validate this token
-
-    
-
-
-
-
-const authorise = function(req, res, next) {
-
-    let user = req.param.userId
-    let logginuser = decodedToken.userId
-
-    if(user != logginuser){
-        return res.send({msg:"is not correct user"})
-    }else{
+        let decodedToken = jwt.verify(token,"functionup-thorium");
+        if(!decodedToken){
+            return res.send({status: false, msg:"token is invalid"})
+        }
+        req.loggedInuser = decodedToken.userId
         next()
     }
-    // comapre the logged in user's id and the id in request
-    
+    const authorise = function (req,res,next){
+        let requestedUserId = req.params.userId
+        if(requestedUserId !== req.loggedInuser)
+        return res.send({status :false, msg:"you dont have authorisation"});
+        next()
+    }
+    module.exports.authenticate=authenticate
+    module.exports.authorise=authorise
 }
-
